@@ -18,3 +18,7 @@ notifications:
       -avilin1@outlook.com
     on_success: never # default: change
     on_failure: always # defa,ult: always
+    
+    env:
+  global:
+    - CODECOV_TOKEN="dbd6a8b5-6843-4d21-8fb2-000e3902a823"
