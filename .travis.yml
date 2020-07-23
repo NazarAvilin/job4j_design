@@ -11,8 +11,8 @@ notifications:
   email:
     recipients:
       -avilin1@outlook.com
-    on_success: never # default: change
-    on_failure: always # defa,ult: always
+    on_success: never
+    on_failure: always
     
     env:
   global:
