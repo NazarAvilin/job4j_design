@@ -20,14 +20,14 @@ public class Analyse {
             return new Info(0, 0, previous.size());
         }
 
-        Map<Integer, User> Prev = previous.stream().collect(
+        Map<Integer, User> prev = previous.stream().collect(
                 Collectors.toMap(User::getId, Function.identity()));
 
         for (User user : current) {
-            if (!Prev.containsKey(user.getId())) {
+            if (!prev.containsKey(user.getId())) {
                 added++;
             } else {
-                User temp = Prev.get(user.getId());
+                User temp = prev.get(user.getId());
                 if (!user.getName().equals(temp.getName())) {
                     changed++;
                 }
@@ -38,8 +38,8 @@ public class Analyse {
     }
 
     public static class User {
-        private int id;
-        private String name;
+        private final int id;
+        private final String name;
 
         public User(int id, String name) {
             this.id = id;
@@ -50,16 +50,8 @@ public class Analyse {
             return id;
         }
 
-        public void setId(int id) {
-            this.id = id;
-        }
-
         public String getName() {
             return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         @Override
@@ -82,9 +74,9 @@ public class Analyse {
     }
 
     public static class Info {
-        private int added;
-        private int changed;
-        private int deleted;
+        private final int added;
+        private final int changed;
+        private final int deleted;
 
         public Info(int added, int changed, int deleted) {
             this.added = added;
@@ -96,24 +88,12 @@ public class Analyse {
             return added;
         }
 
-        public void setAdded(int added) {
-            this.added = added;
-        }
-
         public int getChanged() {
             return changed;
         }
 
-        public void setChanged(int changed) {
-            this.changed = changed;
-        }
-
         public int getDeleted() {
             return deleted;
-        }
-
-        public void setDeleted(int deleted) {
-            this.deleted = deleted;
         }
     }
 }
