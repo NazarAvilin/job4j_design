@@ -12,8 +12,11 @@ public class EvenNumberFile {
             }
             String[] lines = text.toString().split(System.lineSeparator());
             for (String line : lines) {
-                int n = Integer.parseInt(line);
-                System.out.println(line + " it's even " + (n % 2 == 0));
+                if (Integer.parseInt(line) % 2 == 0) {
+                    System.out.println(line + " it's even");
+                } else {
+                    System.out.println(line + " isn't even");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
