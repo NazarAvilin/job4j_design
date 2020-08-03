@@ -6,8 +6,7 @@ import java.util.*;
 public class LogFilter {
     public static List<String> filter(String file) {
         List<String> rsl = new ArrayList<>();
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(file));
+        try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             List<String> lines = new ArrayList<>();
             in.lines().forEach(line -> {
                 if (line.contains("404")) {
