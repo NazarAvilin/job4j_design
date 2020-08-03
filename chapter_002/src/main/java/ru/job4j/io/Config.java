@@ -13,12 +13,13 @@ public class Config {
     }
 
     public void load() {
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(this.path));
+        try (BufferedReader in = new BufferedReader(new FileReader(this.path))) {
             in.lines().forEach(line -> {
                 if (!line.isEmpty()) {
-                    if (line.contains("/")) {
+                    if (line.contains("//")) {
                         line = line.substring(0, line.indexOf("/"));
+                    } else if (line.contains("#")) {
+                        line = line.substring(0, line.indexOf("#"));
                     }
                     values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
                 }
