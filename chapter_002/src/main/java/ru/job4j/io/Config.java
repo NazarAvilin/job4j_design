@@ -18,8 +18,6 @@ public class Config {
                 if (!line.isEmpty()) {
                     if (line.contains("//")) {
                         line = line.substring(0, line.indexOf("/"));
-                    } else if (line.contains("#")) {
-                        line = line.substring(0, line.indexOf("#"));
                     }
                     values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
                 }
