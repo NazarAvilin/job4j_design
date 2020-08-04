@@ -7,13 +7,13 @@ public class Analyses {
 
     public void unavailable(String source, String target) {
         StringJoiner rsl = new StringJoiner("");
-        try (BufferedReader in = new BufferedReader(new FileReader(source));
-             PrintWriter out = new PrintWriter(new BufferedOutputStream(
-                     new FileOutputStream(target)))) {
+        String el = null;
+        try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             in.lines().forEach(line -> {
                 char lineEnd = '\u0000';
+                String temp = rsl.toString();
                 if (rsl.length() > 0) {
-                    lineEnd = rsl.toString().charAt(rsl.toString().length() - 1);
+                    lineEnd = temp.charAt(temp.length() - 1);
                 }
                 if ((line.startsWith("400") || line.startsWith("500")) && (lineEnd != ';')) {
                     rsl.add(line.substring(4) + ";");
@@ -22,8 +22,13 @@ public class Analyses {
                     rsl.add(line.substring(4) + System.lineSeparator());
                 }
             });
-            out.write(rsl.toString());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(
+                new FileOutputStream(target)))) {
+            out.write(rsl.toString());
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
