@@ -7,7 +7,6 @@ public class Analyses {
 
     public void unavailable(String source, String target) {
         StringJoiner rsl = new StringJoiner("");
-        String el = null;
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             in.lines().forEach(line -> {
                 char lineEnd = '\u0000';
