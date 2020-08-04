@@ -1,13 +1,11 @@
 package ru.job4j.io;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import static org.junit.Assert.*;
-import java.util.List;
-import java.util.StringJoiner;
 import java.io.*;
+import org.junit.*;
+import java.util.*;
+import static org.junit.Assert.*;
 import java.nio.file.Files;
+import org.junit.rules.TemporaryFolder;
 import static org.hamcrest.core.Is.is;
 
 
