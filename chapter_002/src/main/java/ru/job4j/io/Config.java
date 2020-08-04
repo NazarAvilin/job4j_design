@@ -16,10 +16,12 @@ public class Config {
         try (BufferedReader in = new BufferedReader(new FileReader(this.path))) {
             in.lines().forEach(line -> {
                 if (!line.isEmpty()) {
-                    if (line.contains("//")) {
+                    if (line.contains("//")) { //это важно для того чтобы не пропускать комментарии находящихся на одной страке!
                         line = line.substring(0, line.indexOf("/"));
                     }
-                    values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
+                    if (!line.startsWith("#")) {
+                        values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
+                    }
                 }
             });
         } catch (Exception e) {
