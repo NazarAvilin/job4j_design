@@ -7,7 +7,8 @@ public class Analyses {
 
     public void unavailable(String source, String target) {
         StringJoiner rsl = new StringJoiner("");
-        try (BufferedReader in = new BufferedReader(new FileReader(source))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(source));
+            BufferedWriter out = new BufferedWriter(new FileWriter(target))) {
             in.lines().forEach(line -> {
                 char lineEnd = '\u0000';
                 String temp = rsl.toString();
@@ -21,13 +22,8 @@ public class Analyses {
                     rsl.add(line.substring(4) + System.lineSeparator());
                 }
             });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(
-                new FileOutputStream(target)))) {
             out.write(rsl.toString());
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
