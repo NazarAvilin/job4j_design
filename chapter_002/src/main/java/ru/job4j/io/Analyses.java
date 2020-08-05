@@ -5,24 +5,30 @@ import java.util.*;
 
 public class Analyses {
 
+    private static final String NORMAL_STATUS = "[123].+";
+
     public void unavailable(String source, String target) {
-        StringJoiner rsl = new StringJoiner("");
-        try (BufferedReader in = new BufferedReader(new FileReader(source));
-            BufferedWriter out = new BufferedWriter(new FileWriter(target))) {
-            in.lines().forEach(line -> {
-                char lineEnd = '\u0000';
-                String temp = rsl.toString();
-                if (rsl.length() > 0) {
-                    lineEnd = temp.charAt(temp.length() - 1);
+        try (BufferedReader br = new BufferedReader(new FileReader(source));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(target))) {
+            boolean flag = false;
+            String start = "";
+            String line;
+            do {
+                line = br.readLine();
+                if (line != null) {
+                    boolean isNormal = line.matches(NORMAL_STATUS);
+                    if (!flag && !isNormal && line.startsWith("500")) {
+                        start = line.split(" ")[1];
+                        flag = true;
+                    } else if (!flag && !isNormal && line.startsWith("400")) {
+                        start = line.split(" ")[1];
+                        flag = true;
+                    } else if (flag && isNormal) {
+                        bw.write(String.format("%s;%s%n", start, line.split(" ")[1]));
+                        flag = false;
+                    }
                 }
-                if ((line.startsWith("400") || line.startsWith("500")) && (lineEnd != ';')) {
-                    rsl.add(line.substring(4) + ";");
-                } else if ((line.startsWith("200") || line.startsWith("300"))
-                        && (lineEnd == ';')) {
-                    rsl.add(line.substring(4) + System.lineSeparator());
-                }
-            });
-            out.write(rsl.toString());
+            } while (line != null);
         } catch (Exception e) {
             e.printStackTrace();
         }
