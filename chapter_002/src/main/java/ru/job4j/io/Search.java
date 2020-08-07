@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import static java.nio.file.FileVisitResult.CONTINUE;
 
@@ -14,8 +16,10 @@ public class Search {
         if (args.length != 2) {
             throw new IllegalArgumentException("Root folder is null or file type in not mentioned");
         }
+        Set<String> list = new HashSet<>();
         Path start = Paths.get(args[0]);
-        search(start, args[1]).forEach(System.out::println);
+        search(start, args[1]).forEach(line -> list.add(line + System.lineSeparator()));
+        System.out.println(list);
     }
 
     public static List<Path> search(Path root, String ext) throws IOException {
