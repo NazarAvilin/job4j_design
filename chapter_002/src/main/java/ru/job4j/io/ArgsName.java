@@ -14,7 +14,7 @@ public class ArgsName {
     private void parse(String[] args) {
         for (String el : args) {
             String key = el.substring(1, el.indexOf("="));
-            String value = el.substring(el.indexOf("=") + 1);
+            String value = el.split("=")[1];
             values.put(key, value);
         }
     }
@@ -33,6 +33,6 @@ public class ArgsName {
         System.out.println(jvm.get("Xmx"));
 
         ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
-        System.out.println(jvm.get("out"));
+        System.out.println(zip.get("out"));
     }
 }
