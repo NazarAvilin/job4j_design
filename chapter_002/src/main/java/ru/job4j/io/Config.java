@@ -17,10 +17,10 @@ public class Config {
             in.lines().forEach(line -> {
                 if (!line.isEmpty()) {
                     if (line.contains("//")) { //это важно для того чтобы не пропускать комментарии находящихся на одной страке!
-                        line = line.substring(0, line.indexOf("/"));
+                        line = line.split("/")[0];
                     }
                     if (!line.startsWith("#")) {
-                        values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
+                        values.put(line.split("=")[0], line.split("=")[1]);
                     }
                 }
             });
