@@ -5,18 +5,18 @@ import java.util.Arrays;
 public class ArgZip {
 
     private final String[] args;
-    private final int arguments = 3;
-    private final int keys = 3;
 
     public ArgZip(String[] args) {
         this.args = args;
     }
 
     public boolean valid() {
+        final int arguments = 3;
         if (args.length != arguments) {
             throw new IllegalArgumentException("Not enough arguments!");
         }
         long counter = Arrays.stream(args).filter(k -> k.startsWith("-")).count();
+        final int keys = 3;
         if (counter != keys) {
             throw new IllegalArgumentException("Not enough keys!");
         }
@@ -41,7 +41,7 @@ public class ArgZip {
     }
 
     public String exclude() {
-        return findByKey("-d");
+        return findByKey("-e");
     }
 
     public String output() {
