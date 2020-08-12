@@ -11,7 +11,6 @@ public class FileGetter implements FileVisitor<Path> {
     private final List<Path> metFile = new ArrayList<>();
 
     public Set<Path> getDuplicates() {
-        System.out.println(duplicates);
         return duplicates;
     }
 
@@ -23,12 +22,11 @@ public class FileGetter implements FileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
         Path source = file.getFileName();
-        if (metFile.equals(source)) {
+        if (metFile.contains(source)) {
             duplicates.add(file);
         } else {
             metFile.add(source);
         }
-        System.out.println(metFile);
         return FileVisitResult.CONTINUE;
     }
 

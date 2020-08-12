@@ -6,9 +6,10 @@ import java.nio.file.*;
 public class FileVisitor {
 
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        Files.walkFileTree(start, new FileGetter());
+        Path start = Paths.get(args[0]);
         FileGetter fileGetter = new FileGetter();
-        fileGetter.getDuplicates();
+        Files.walkFileTree(start, fileGetter);
+        fileGetter.getDuplicates().forEach(p ->
+                System.out.println(p.toAbsolutePath().toString()));
     }
 }
