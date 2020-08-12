@@ -7,6 +7,13 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class FileGetter implements FileVisitor<Path> {
+    Set<Path> duplicates = new HashSet<>();
+    List<Path> metFile = new ArrayList<>();
+
+    public Set<Path> getDuplicates() {
+        System.out.println(duplicates);
+        return duplicates;
+    }
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
         return FileVisitResult.CONTINUE;
@@ -14,26 +21,13 @@ public class FileGetter implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-        Path source = file.toAbsolutePath();
-        Set<Path> duplicates = new HashSet<>();
-        List<Path> list = new ArrayList<>();
-        List<Path> temp = new ArrayList<>();
-        temp.add(source);
-        list.add(source.getFileName());
-        for (int i = 0; i < list.size(); i++) {
-            Path el1 = list.get(i);
-            if (el1 == null) {
-                continue;
-            }
-            for (int j = 0; j < list.size(); j++) {
-                Path el2 = list.get(j);
-                if (el1.equals(el2)) {
-                    duplicates.add(temp.get(j));
-                }
-            }
+        Path source = file.getFileName();
+        if (metFile.equals(source)) {
+            duplicates.add(file);
+        } else {
+            metFile.add(source);
         }
         System.out.println(duplicates);
-
         return FileVisitResult.CONTINUE;
     }
 
