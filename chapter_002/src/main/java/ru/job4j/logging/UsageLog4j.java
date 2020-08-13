@@ -1,4 +1,4 @@
-package ru.job4j.socket;
+package ru.job4j.logging;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,4 +15,3 @@ public class UsageLog4j {
         LOG.error("error message");
     }
 }
-
