@@ -1,10 +1,14 @@
 package ru.job4j.socket;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
+    
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
             boolean go = true;
@@ -13,15 +17,20 @@ public class EchoServer {
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
-                    String str;
-                    while (!(str = in.readLine()).isEmpty()) {
-                        if (!str.contains("Bye")) {
-                            System.out.println(str);
-                        } else {
+                    String str = in.readLine();
+                    String answer = "";
+                    while (!str.isEmpty()) {
+                        if (str.contains("Exit")) {
                             go = false;
                         }
+                        if (answer.equals("")) {
+                            answer = System.lineSeparator() + str.split("=")[1];
+                            answer = answer.split("HTTP")[0];
+                        }
+                        str = in.readLine();
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
+                    System.out.println(answer);
+                    out.write(answer.getBytes());
                 }
             }
         }
