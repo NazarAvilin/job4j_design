@@ -24,12 +24,13 @@ public class EchoServer {
                             go = false;
                         }
                         if (answer.equals("")) {
-                            answer = System.lineSeparator() + str.split("=")[1];
+                            answer = str.split("=")[1];
                             answer = answer.split("HTTP")[0];
                         }
                         str = in.readLine();
                     }
                     System.out.println(answer);
+                    out.write("\nHTTP/1.1 200 OK\r\n\r".getBytes());
                     out.write(answer.getBytes());
                 }
             }
