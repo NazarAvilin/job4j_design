@@ -1,14 +1,8 @@
 package ru.job4j.socket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import org.slf4j.*;
+import java.io.*;
+import java.net.*;
 
 public class EchoServer {
 
