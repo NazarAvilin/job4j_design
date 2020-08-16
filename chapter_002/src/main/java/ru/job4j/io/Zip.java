@@ -41,10 +41,10 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
-        new Zip().packSingleFile(
-                new File("./chapter_002/pom.xml"),
-                new File("./chapter_002/pom.zip")
-        );
+//        new Zip().packSingleFile(
+//                new File("./chapter_002/pom.xml"),
+//                new File("./chapter_002/pom.zip")
+//        );
 
         ArgZip argZip = new ArgZip(args);
         List<Path> list = searcher(argZip);
