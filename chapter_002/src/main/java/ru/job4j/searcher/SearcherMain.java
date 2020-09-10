@@ -31,7 +31,7 @@ public class SearcherMain {
 
         Writer saver = new Writer();
 
-        String target = args[3].replace("-o", "");
+        String target = args[3].replace("-o ", "");
 
         try (PrintWriter writer = new PrintWriter(
                 new BufferedOutputStream(new FileOutputStream(target)))) {

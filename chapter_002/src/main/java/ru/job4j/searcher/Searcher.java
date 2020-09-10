@@ -36,7 +36,7 @@ public class Searcher {
     }
 
     public List<Path> search(String directory, String name, String mode) throws IOException {
-        Path start = Paths.get(directory.replace("-d", ""));
+        Path start = Paths.get(directory.replace("-d ", ""));
         Predicate<Path> searchMode = nameChanger(mode, name);
         Visitor visitor = new Visitor(searchMode);
         Files.walkFileTree(start, visitor);
